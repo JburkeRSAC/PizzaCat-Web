@@ -1,0 +1,32 @@
+ul#list-nav {
+  list-style:none;
+  margin:20px;
+  padding:0;
+  width:1350px
+}
+
+ul#list-nav li {
+  display:inline
+}
+
+ul#list-nav li a {
+  text-decoration:none;
+  padding:5px 0;
+  width:250px;
+  background:#a71b02;
+  color:#eee;
+  float:left;
+  text-align:center;
+  border-left:1px solid #fff;
+}
+
+ul#list-nav li a:hover {
+  background:#790c81;
+  color:#000
+}
+
+ul#list-nav li.active a, nav li.active a:hover, nav a:active {
+ background:#790c81;
+  color:#000
+}
+
