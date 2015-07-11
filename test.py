@@ -58,17 +58,7 @@ NVP1 = []
 #
 def main():
     try:
-       # print "Starting Processing"
-       # tempfile = open('/root/tmp.dat','w+')
-       # r = Tk()
-       # clipbuff = r.selection_get(selection = "CLIPBOARD")
-       # tempfile.write(clipbuff)
-       # tempfile.close()
-        # open unstructured data source
         file_object = open('/var/www/html/MEMBER_SUBMISSIONS/upload.txt')
-        # {1: IPV4addr},{2: emailaddr}, {3: DocumentID}
-        # {4: defangIng}, {5: Web}, {6: Domain name}
-        # {7: Name : Value Pair }
         rg1 = re.compile(re1,re.IGNORECASE|re.DOTALL)
         rg2 = re.compile(re2a,re.IGNORECASE|re.DOTALL)
         rg3 = re.compile(re3,re.IGNORECASE|re.DOTALL)
@@ -78,28 +68,18 @@ def main():
         rg7 = re.compile(re7,re.IGNORECASE)
         caseidfound = 0
         caseid = 'Unknown'
-#        for line in file_object:
         for line in file_object:
-#           print (line)
-# look for "name : value" pairs befor re-fanging
-#
             m7 = rg7.search(line)
             if m7:
                 namvalpair=m7.group()
                 if namvalpair not in NVP1:
                     NVP1.append(namvalpair)      
-# m4 = has defanging pattern matching '[' value ']'
             m4 = rg4.search(line)
             if m4:
-# Find fanging patterns and remove
-# This function needs to be implemented in a modular global form
-# Detection of the known variants for "defanging" is not complete
-# This is for example purposes only.  n
                 line = re.sub('\[|]', '', line)
                 line = re.sub('dot|DOT', '.', line)
                 line = re.sub('AT|at', '.', line)
 		line = re.sub('hxxp:', 'http:', line)
-#
             m1 = rg1.search(line)
             m2 = rg2.search(line)
             m3 = rg3.search(line)
@@ -135,23 +115,9 @@ def main():
     finally:
         file_object.close()
         outdata = open('file' + '.txt', 'w+')
-        #print "**** Input Processing completed - Starting Output Processing ****"
-        #IPL1.sort()
-        #EML1.sort()
-        #DOM1.sort()
-        #print "{{ dsieCaseId : " + caseid + " }"
-        #print "{ network.ipv4addr : " + str(IPL1) + " }\n"
-	#print str(IPL1) + "\n"
 	print '\n'.join(IPL1) 
         print '\n'.join(DOM1) 
         print '\n'.join(WEB1) 
-	#print str(NVP1) + "\n"
-        #print "{ email.address : " + str(EML1) +" }\n"
-        #print "{ domain.fqdn : " + str(DOM1) + " }\n"
-        #print "{ web.url : " + str(WEB1) + " }\n"
-        #print "{ nameValuePairs : " + str(NVP1) + " }\n"
-        #print "{ documentId.related : " + str(REL1) + " }\n}"
-        #print (clipbuff)
         outdata.write(str(IPL1))
         outdata.write(str(DOM1))
         outdata.write(str(WEB1))
